@@ -105,6 +105,33 @@ body {
   }
 }
 
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes snip {
+  0%, 100% { transform: rotate(-20deg) scale(1); }
+  50% { transform: rotate(20deg) scale(1.1); }
+}
+
+@keyframes fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+.loader-ring {
+  animation: spin-slow 1.4s linear infinite;
+}
+
+.loader-scissors {
+  animation: snip 0.7s ease-in-out infinite;
+}
+
+.loader-fade {
+  animation: fade-out 0.5s ease forwards;
+}
+
 @keyframes float {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   33% { transform: translate(30px, -50px) rotate(2deg); }

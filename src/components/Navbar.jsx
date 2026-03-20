@@ -41,18 +41,25 @@ export default function AppNavbar() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="w-full max-w-7xl"
+        className="w-full max-w-7xl relative"
       >
         <Navbar 
           isMenuOpen={isMenuOpen}
           onMenuOpenChange={setIsMenuOpen} 
           maxWidth="full" 
-          className={`h-16 lg:h-20 transition-all duration-500 rounded-3xl ${
-            scrolled 
-              ? isDark
-                ? "bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl py-0"
-                : "bg-white/80 backdrop-blur-2xl border border-slate-200 shadow-lg shadow-slate-200/50 py-0"
-              : "bg-transparent py-2"
+          className={`h-16 lg:h-20 transition-all duration-500 ${
+            isMenuOpen
+              ? `rounded-t-3xl ${isDark
+                  ? "bg-black/40 backdrop-blur-2xl border-x border-t border-white/10"
+                  : "bg-white/80 backdrop-blur-2xl border-x border-t border-slate-200"
+                }`
+              : `rounded-3xl ${
+                  scrolled
+                    ? isDark
+                      ? "bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl py-0"
+                      : "bg-white/80 backdrop-blur-2xl border border-slate-200 shadow-lg shadow-slate-200/50 py-0"
+                    : "bg-transparent py-2"
+                }`
           }`}
           containerFragment={false}
           position="static"
@@ -113,43 +120,59 @@ export default function AppNavbar() {
               </div>
             </button>
           </NavbarContent>
-          <NavbarMenu className={`backdrop-blur-[40px] pt-16 px-10 border-t mt-6 rounded-[40px] h-[calc(100vh-120px)] shadow-2xl overflow-hidden ${isDark ? "bg-[#020617]/90 border-white/5" : "bg-white/95 border-slate-200"}`}>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="flex flex-col gap-10"
+        </Navbar>
+
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className={`lg:hidden overflow-hidden rounded-b-3xl border-x border-b shadow-2xl ${isDark ? "bg-black/40 backdrop-blur-2xl border-white/10" : "bg-white/80 backdrop-blur-2xl border-slate-200"}`}
             >
-              <div className="flex flex-col gap-8">
-                {menuItems.map((item, index) => (
-                  <NavbarMenuItem key={`${item.label}-${index}`}>
-                    <Link
-                      className={`w-full text-5xl font-black transition-all duration-500 flex justify-between items-center group decoration-none hover:text-cyan-400 ${isDark ? "text-white/10" : "text-slate-200"}`}
-                      href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
+              <div className="px-8 pt-4 pb-8 flex flex-col">
+                <div className="flex flex-col gap-1">
+                  {menuItems.map((item, index) => (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 + index * 0.06 }}
                     >
-                      <span className="group-hover:translate-x-4 transition-transform leading-none">{item.label}</span>
-                      <motion.div
-                        whileHover={{ scale: 1.2, rotate: 45 }}
-                        className="p-3 bg-white/5 rounded-2xl opacity-0 group-hover:opacity-100 -translate-x-12 group-hover:translate-x-0 transition-all duration-500"
+                      <Link
+                        className={`w-full flex items-center justify-center gap-3 py-4 px-4 rounded-2xl transition-all duration-300 group decoration-none ${
+                          isDark
+                            ? "text-white/30 hover:text-white hover:bg-white/5"
+                            : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"
+                        }`}
+                        href={item.href}
+                        onClick={() => setIsMenuOpen(false)}
                       >
-                         <ArrowRight className="text-cyan-500" size={32} />
-                      </motion.div>
-                    </Link>
-                  </NavbarMenuItem>
-                ))}
-              </div>
-              
-              <div className={`mt-auto pb-20 border-t pt-10 flex flex-col gap-4 ${isDark ? "border-white/5" : "border-slate-200"}`}>
-                 <p className={`text-[10px] font-black tracking-[0.4em] uppercase ${isDark ? "text-white/20" : "text-slate-400"}`}>SYSTEM STATUS</p>
-                 <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-                    <p className={`text-xs font-bold uppercase tracking-widest ${isDark ? "text-white/60" : "text-slate-600"}`}>All protocols operational</p>
-                 </div>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
+                        <span className="text-3xl font-black tracking-tighter leading-none">{item.label}</span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className={`h-px my-6 ${isDark ? "bg-white/5" : "bg-slate-100"}`} />
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                    <p className={`text-[10px] font-bold uppercase tracking-[0.25em] ${isDark ? "text-white/30" : "text-slate-400"}`}>
+                      All systems operational
+                    </p>
+                  </div>
+                  <span className={`text-[10px] font-bold tracking-widest uppercase ${isDark ? "text-white/15" : "text-slate-300"}`}>
+                    SPAY © 2026
+                  </span>
+                </div>
               </div>
             </motion.div>
-          </NavbarMenu>
-        </Navbar>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );

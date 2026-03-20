@@ -9,7 +9,7 @@ const team = [
     role: "UI/UX Designer",
     subrole: "& Frontend Developer",
     skills: ["Figma", "React", "Tailwind"],
-    avatar: "/img/Petra.jpg",
+    avatar: "/img/Petra.jpeg",
     gradient: "from-cyan-500 to-blue-600",
     gradientRaw: ["#06b6d4", "#2563eb"],
     number: "01",

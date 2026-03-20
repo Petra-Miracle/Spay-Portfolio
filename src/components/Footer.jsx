@@ -102,10 +102,7 @@ export default function Footer() {
             <Command size={12} />
             <span>© 2026 SPAY TEAM. All rights reserved.</span>
           </div>
-          <div className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-            <span className={isDark ? "text-slate-600" : "text-slate-400"}>All systems operational</span>
-          </div>
+          
         </div>
       </div>
     </footer>

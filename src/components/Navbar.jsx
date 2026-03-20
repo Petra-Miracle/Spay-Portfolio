@@ -159,12 +159,7 @@ export default function AppNavbar() {
                 <div className={`h-px my-6 ${isDark ? "bg-white/5" : "bg-slate-100"}`} />
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                    <p className={`text-[10px] font-bold uppercase tracking-[0.25em] ${isDark ? "text-white/30" : "text-slate-400"}`}>
-                      All systems operational
-                    </p>
-                  </div>
+                  
                   <span className={`text-[10px] font-bold tracking-widest uppercase ${isDark ? "text-white/15" : "text-slate-300"}`}>
                     SPAY © 2026
                   </span>

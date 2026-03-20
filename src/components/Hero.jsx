@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Link } from "@heroui/react";
 import { motion } from "framer-motion";
-import { Rocket, Code2, Cpu, ArrowRight } from "lucide-react";
+import { Rocket, Cpu, ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -38,22 +37,15 @@ export default function Hero() {
           We are <span className="text-slate-900 dark:text-white font-medium">SPAY Team</span>. A collective of visionaries building high-performance solutions for the next generation of finance.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <Button 
-            size="lg" 
-            className="h-14 px-10 font-bold bg-white text-black hover:bg-white/90 transition-all shadow-2xl shadow-white/10 rounded-full group"
-            endContent={<ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-3 h-14 px-10 font-bold bg-white text-black hover:bg-slate-100 transition-all shadow-xl rounded-full group no-underline"
           >
-            Explore Projects
-          </Button>
-          <Button 
-            size="lg" 
-            variant="bordered" 
-            className="h-14 px-10 font-bold rounded-full border-slate-300 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-slate-400 dark:hover:border-white/20 text-slate-800 dark:text-white"
-            startContent={<Cpu size={20} />}
-          >
-            Our Tech Stack
-          </Button>
+            Selected Works
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+          
         </div>
       </motion.div>
 
